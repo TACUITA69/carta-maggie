@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta</title>
+    <style>
+        body {
+            background-color:transparent;
+            font-family: 'Arial', sans-serif;
+            color: #fcfcfc;
+            background-image: url("nuevo.jpg");
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
+            }
+            h1 {
+            text-align: up;
+            color: #0066cc;
+            font-size: 5em; 
+            margin-top: 20px;
+
+            display: flex;
+            height: 100vh; 
+            align-items: up; 
+            justify-content: center; 
+        }
+
+        #passwordContainer {
+            position: absolute;
+            margin-top: 20px;
+        }
+        
+        #passwordInput {
+            margin-right: 10px;
+        }
+        #envelope {
+            position: absolute;
+            cursor: pointer;
+        }
+        #letter {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5em;
+            color: #333;
+            text-align: center;
+        }
+        .heart {
+            position: absolute;
+            transform-origin: center bottom;
+            animation: rotateHeart 2s linear infinite, changeColor 2s linear infinite;
+            display: none;
+            font-size: 48px;
+        }
+        @keyframes fall {
+            0% { 
+                transform: translateY(0);
+            }
+            100% {
+                 transform: translateY(100vh); 
+                }
+        }
+        @keyframes changeColor {
+            0% { color: red; }
+            25% { color: pink; }
+            50% { color: purple; }
+            75% { color: red; }
+            100% { color: pink; }
+        }
+    </style>
+</head>
+<body>
+    <div id="heartContainer"></div>
+    <h1 style="text-align: center; color: #000000;">Para mi ser amada</h1>
+
+    <div id="passwordContainer">
+        <label for="passwordInput">Contraseña:</label>
+        <input type="password" id="passwordInput" />
+        <button onclick="checkPassword()">Abrir sobre</button>
+    </div>
+
+    <div id="envelope" onclick="showLetter()">
+        <div id="letter">Para Maggie:
+            
+            Querida Maggie,
+
+            Espero que esta carta te encuentre bien y te traiga una sonrisa. Permíteme presentarme, soy Jesus, alguien que ha tenido el placer de notar tu presencia en este vasto mundo. Aunque no nos conocemos personalmente, he sentido la necesidad de expresar lo que ha llamado mi atención.
+            
+            Maggie, desde el momento en que tu nombre llegó a mis oídos, algo en mí despertó y me llevó a querer conocerte más allá de las apariencias. Puede que suene un tanto curioso, pero creo que a veces la vida nos presenta situaciones inesperadas y personas especiales que merecen ser descubiertas.
+            
+            No sé mucho acerca de ti, pero hay algo en la idea de aprender sobre tus sueños, tus pasiones y lo que te hace sonreír que me llena de emoción. Tal vez sea la manera en que iluminas el mundo con tu mera existencia, o quizás sea simplemente la curiosidad de descubrir quién eres más allá de las apariencias.
+            
+            No espero respuestas inmediatas ni promesas. Entiendo que la vida puede ser compleja y que las conexiones se construyen con el tiempo. Sin embargo, si alguna vez te apetece compartir una conversación o simplemente conocernos mejor, estaré aquí, listo para escuchar y aprender.
+            
+            Gracias por tomarte el tiempo de leer estas líneas. Sin importar cómo decidas responder, deseo que la vida te traiga momentos de alegría y que sigas iluminando el mundo con tu luz única.💕
+            
+            Con admiración,
+            
+            Jesus<br></div>
+        <div class="heart">❤️</div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var heartContainer = document.getElementById('heartContainer');
+
+            function createHeart() {
+                var heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+
+                var randomX = Math.random() * window.innerWidth;
+                var randomY = Math.random() * window.innerHeight;
+
+                heart.style.left = randomX + '48px';
+                heart.style.top = randomY + '48px';
+
+                heartContainer.appendChild(heart);
+
+                setTimeout(function () {
+                    heart.style.display = 'block';
+                }, 100);
+
+                setTimeout(function () {
+                    heartContainer.removeChild(heart);
+                }, 3000);
+            }
+
+            setInterval(createHeart, 1000);
+        });
+    </script>
+
+    <script>
+
+function openEnvelope() {
+    var envelope = document.getElementById("envelope");
+    envelope.style.background = "#fff"; 
+    envelope.style.border = "2px solid #000";
+    document.getElementById("letter").style.display = "block";
+    document.getElementById("letter").style.fontSize = "55%";
+    document.querySelectorAll(".heart").forEach(function (heart) {
+        heart.style.display = "block";
+    });
+    console.log("Sobre abierto");
+
+    var nuevaVentana = window.open("", "_blank");
+            nuevaVentana.document.write('<html><head><title>Contenido de la Carta</title>');
+            nuevaVentana.document.write('<style>');
+            nuevaVentana.document.write('body {');
+            nuevaVentana.document.write('    background-image: url("fondo.jpg");');
+            nuevaVentana.document.write('    background-size: cover;'); 
+            nuevaVentana.document.write('    background-color: pink;');  
+            nuevaVentana.document.write('    display: flex;'); 
+            nuevaVentana.document.write('    align-items: center;');
+            nuevaVentana.document.write('    justify-content: center;');
+            nuevaVentana.document.write('    height: 100vh;');
+            nuevaVentana.document.write('    margin: 250;');
+            nuevaVentana.document.write("}");
+            nuevaVentana.document.write('</style></head><body>');
+            nuevaVentana.document.write('<div style="background-color: pink; padding: 20px;">');
+            nuevaVentana.document.write(document.getElementById("letter").innerHTML);
+
+
+            nuevaVentana.document.write('</div></body></html>');
+            window.close();
+}
+
+        function checkPassword() {
+            var password = document.getElementById("passwordInput").value;
+
+            if (password === "Maggie") {
+                document.getElementById("envelope").classList.add("opened");
+                document.getElementById("envelope").style.display = "none";
+
+                document.querySelectorAll(".heart").forEach(function (heart) {
+                    heart.style.display="block";
+                });
+
+                openEnvelope();
+            } else {
+                alert("Contraseña incorrecta");
+            }
+        }
+
+        function showLetter() {
+            document.getElementById("letter").style.display = "block";
+            document.querySelectorAll(".heart").forEach(function (heart) {
+                heart.style.display = "block";
+            });
+        }
+    </script>
+</body>
+</html>
